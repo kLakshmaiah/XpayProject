@@ -128,7 +128,7 @@ namespace XpayProject
 			}
 			if (ticketIdCb.SelectedItem != "" && ticketIdCb.SelectedItem != null && updateStatusCb.SelectedItem != "" && updateStatusCb.SelectedItem != null)
 			{
-				if(updateStatusCb.SelectedItem.ToString() == "Assigned")
+				if(updateStatusCb.SelectedItem.ToString().Equals("assigned",StringComparison.CurrentCultureIgnoreCase))
 				{
 				    
 					remarksLb.Visible = remarksTb.Visible = false;
@@ -141,7 +141,7 @@ namespace XpayProject
 					assignedCb.ValueMember = "Id";
 					assignedCb.Text = "---select Assigned Employee---";
 				}
-				else if(updateStatusCb.SelectedItem.ToString()== "Resolved")
+				else if(updateStatusCb.SelectedItem.ToString().Equals("resolved",StringComparison.CurrentCultureIgnoreCase))
 				{
 					assignedLb.Visible = assignedCb.Visible = false;
 					remarksLb.Visible=remarksTb.Visible = true;

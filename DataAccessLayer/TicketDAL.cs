@@ -13,7 +13,7 @@ namespace DataAccessLayer
 {
 	public class TicketDAL
 	{
-		private string connectionString = "Data Source=DESKTOP-5877V5N;Initial Catalog=xpay;Persist Security Info=True;User ID=sa;Password=1234567890";
+		private string connectionString = "Data Source=.;Initial Catalog=xpay;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
 		public string SaveTicketDetails(TicketDetails model)
 		{
 			SqlConnection con= new SqlConnection(connectionString);
@@ -70,10 +70,12 @@ namespace DataAccessLayer
 				model.MobileNumber = dr["mobile"].ToString();
 				model.Problem = dr["problem"].ToString() ;
 				model.Description= dr["description"].ToString();
-				model.StatusCode= dr["ticket_status"].ToString();
-				model.CreatedOn = Convert.ToDateTime(dr["created_on"]);
+				model.IntialStatus= dr["ticket_status"].ToString();
+                model.StatusCode = dr["ticket_status"].ToString();
+                model.CreatedOn = Convert.ToDateTime(dr["created_on"]);
 				model.UpdatedOn= Convert.ToDateTime(dr["updated_on"]);
-				model.userId= Convert.ToInt64(dr["userId"]);
+                model.AssignedTo = dr["username"].ToString();
+                model.userId= Convert.ToInt64(dr["userId"]);
 				model.ResolvedOn = Convert.ToDateTime(dr["resolved_on"]);
 				model.Resolution = dr["resolution"].ToString();
 				ticket_collection.Add(model);
@@ -127,7 +129,7 @@ namespace DataAccessLayer
 			{
 				TicketDetails model = new TicketDetails();
 				model.Id = dr["id"].ToString();
-				model.Name =dr["customer_lname"].ToString();
+				model.Name =dr["userName"].ToString();
 				ticketDetaislCollection.Add(model);
 			}
 			return ticketDetaislCollection;
@@ -152,7 +154,7 @@ namespace DataAccessLayer
 				model.MobileNumber = dr["mobile"].ToString();
 				model.Problem = dr["problem"].ToString();
 				model.Description = dr["Description"].ToString();
-				model.Id = dr["userId"].ToString();
+				model.Id = dr["id"].ToString();
 			}
 			return model;
 
@@ -185,7 +187,7 @@ namespace DataAccessLayer
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "update_ticket_master_Details";
 			cmd.Parameters.Clear();
-			cmd.Parameters.AddWithValue("@assigned_id", Convert.ToInt32(model.Id));
+			cmd.Parameters.AddWithValue("@assignedid", Convert.ToInt32(model.Id));
 			cmd.Parameters.AddWithValue("@ticket_number", model.StatusCode);
 			if (model.Resolution != "" && model.Resolution!=null)
 			{
@@ -231,7 +233,7 @@ namespace DataAccessLayer
 			cmd.Connection = con;
 			con.Open();
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.CommandText = "count_ticket";
+			cmd.CommandText = "count_tickets";
 			SqlDataReader dr= cmd.ExecuteReader();
 			if (dr.Read())
 			{

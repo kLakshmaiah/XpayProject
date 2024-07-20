@@ -14,7 +14,7 @@ namespace DataAccessLayer
 {
 	public class RegistrationDetailsDAL
 	{
-		private string connectionString = "Data Source=DESKTOP-5877V5N;Initial Catalog=xpay;Persist Security Info=True;User ID=sa;Password=1234567890";
+		private string connectionString = "Data Source=.;Initial Catalog=xpay;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
 		
 		//save the registration Details
 		public bool RegistrationSave(RegistrationDetails model)

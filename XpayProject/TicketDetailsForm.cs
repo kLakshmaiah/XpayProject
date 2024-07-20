@@ -26,7 +26,8 @@ namespace XpayProject
 			var ticketDAL = new TicketDAL();
 			var ticketDetails = ticketDAL.CollectTicketDetails(null);
 			dataGridView1.DataSource = ticketDetails;
-			var statusnames = ticketDAL.StatusNamesRead();
+            dataGridView1 = HidingColumnName(dataGridView1);
+            var statusnames = ticketDAL.StatusNamesRead();
 			statusDetails.Items.Add("All");
 			var i = 0;
 			while (i < statusnames.Count)
@@ -47,18 +48,28 @@ namespace XpayProject
 				{
 					var ticketDAL = new TicketDAL();
 					var ticketDetails = ticketDAL.CollectTicketDetails(null);
-					dataGridView1.DataSource = ticketDetails;
-				}
+                    dataGridView1.Columns["StatusCode"].Visible = false;
+                    dataGridView1.DataSource = ticketDetails;
+					dataGridView1 = HidingColumnName(dataGridView1);
+                }
 				else
 				{
 					var ticketDAL = new TicketDAL();
 					var ticketDetails = ticketDAL.CollectTicketDetails(statusDetails.SelectedItem.ToString());
 					dataGridView1.DataSource = ticketDetails;
-				}
+                    dataGridView1 = HidingColumnName(dataGridView1);
+                }
 				
 			}
 			
 		}
+
+		private DataGridView HidingColumnName(DataGridView dataGridView)
+		{
+            dataGridView.Columns["userId"].Visible = false;
+            dataGridView.Columns["StatusCode"].Visible = false;
+			return dataGridView;
+        }
 
 		private void backBtn_Click(object sender, EventArgs e)
 		{

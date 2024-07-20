@@ -11,7 +11,7 @@ namespace DataAccessLayer
 {
 	public class SecurityQuestionsDAL
 	{
-		private string _connectionString = "Data Source=DESKTOP-5877V5N;Initial Catalog=xpay;Persist Security Info=True;User ID=sa;Password=1234567890";
+		private string _connectionString = "Data Source=.;Initial Catalog=xpay;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
 		public Security_Questions_Collections GetAllQuestions()
 		{
 			SqlConnection conn = new SqlConnection(_connectionString);
